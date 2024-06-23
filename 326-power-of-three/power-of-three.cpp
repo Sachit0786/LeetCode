@@ -10,3 +10,5 @@ public:
         return n==1;  
     }
 };
+
+// also look the recursive and mathematical approach(1162261467) in the c++ solutions
