@@ -1,24 +1,71 @@
+class TrieNode{
+public:
+    char ch;
+    TrieNode* children[26];
+    bool isTerminal;
+    int childCnt;
+
+    TrieNode(char d){
+        this->ch = d;
+        this->isTerminal = false;
+        for(int i=0;i<26;i++){
+            this->children[i] = NULL;
+        }
+        this->childCnt = 0;
+    }
+};
+
 class Solution {
 public:
-    string longestCommonPrefix(vector<string>& strs) {
-        string ans = "";
-        int temp = strs[0].length();
-        for(int j=0; j<strs.size()-1; j++)
-        {
-            int i=0;
-            while(i<temp)
-            {
-                if(strs[j][i] == strs[j+1][i])
-                i++;
+    void insertWord(TrieNode* root, string word){
+        // base case
+        if(word.length() == 0){
+            root->isTerminal = true;
+            return;
+        }
 
-                else
+        // ek case solve baaki re sambhaal lega
+        char ch = word[0];
+        int index = ch-'a';
+        TrieNode* child = NULL;
+
+        if(root->children[index] != NULL){
+            child = root->children[index];
+        }
+        else{
+            child = new TrieNode(ch);
+            root->childCnt++;
+            root->children[index] = child;
+        }
+
+        insertWord(child,word.substr(1));
+    }
+
+    string longestCommonPrefix(vector<string>& strs) {
+        TrieNode* root = new TrieNode('-');
+
+        for(int i=0;i<strs.size();i++){
+            insertWord(root,strs[i]);
+        }
+
+        if(root->isTerminal) return "";
+
+        string st = strs[0];
+        string ans = "";
+
+        for(int i=0;i<st.length();i++){
+            char ch = st[i];
+            int index = ch-'a';
+            if(root->childCnt == 1 && root->children[index] != NULL){
+                ans.push_back(ch);
+                root = root->children[index];
+                if(root->isTerminal) break;
+            }
+            else{
                 break;
             }
-            temp = i;
-            if(temp<1)
-                return ans;
         }
-        ans  = ans + strs[0].substr(0,temp);
+
         return ans;
     }
 };
