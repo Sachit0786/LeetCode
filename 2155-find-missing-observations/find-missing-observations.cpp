@@ -8,14 +8,12 @@ public:
             sum -= rolls[i];
         }
 
-        if(sum<0 || n*6<sum){
+        if(sum<n || n*6<sum){
             return {};
         }
 
         else{
             int distributeMean = sum / n;
-            if(distributeMean==0)
-                return {};
             int mod = sum % n; //remaining elements magnitude
             // Distribute the remaining mod elements in nElements array.
             vector<int> ans(n, distributeMean);
