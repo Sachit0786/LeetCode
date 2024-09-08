@@ -32,17 +32,20 @@ public:
         }
         vector<ListNode*> ans(k,nullptr);
         current = head;
+        int count = 0;
+        ListNode* temp;
         for(int i=0; i<k; i++){
-            ListNode* temp;
-            int count = 0;
+            temp;
+            count = 0;
             ans[i] = current;
             while(count != reference[i]){
                 temp = current;
                 current = current->next;
                 count++;
             }
+            cout << temp->val << " ";
             temp->next = nullptr;
-            cout<<reference[i];
+            // cout<<reference[i];
         }
         return ans;
     }
