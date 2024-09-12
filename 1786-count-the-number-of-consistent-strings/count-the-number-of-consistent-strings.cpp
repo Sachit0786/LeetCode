@@ -7,9 +7,9 @@ public:
         for(char& letter : allowed){
             allow.insert(letter);
         }
-        for(string& element : words){
+        for(string& word : words){
             flag = false;
-            for(char& letter : element){
+            for(char& letter : word){
                 if(!(allow.count(letter))){
                     flag = true;
                     break;
