@@ -1,27 +1,27 @@
 class Solution {
 public:
     int waysToSplitArray(vector<int>& nums) {
-        int n = nums.size();
-        vector<long long> forwardSum(n-1);
-        vector<long long> backwardSum(n-1);
-        long long sum = 0;
-        int count = 0;
+        // Keep track of sum of elements on left and right sides
+        long long leftSum = 0, rightSum = 0;
 
-        for(int i=0; i<n; i++)
-            sum += nums[i];
-
-        for(int i=0; i<n-1; i++){
-            if(i==0)
-                forwardSum[i] = nums[i];
-            else    
-                forwardSum[i] = forwardSum[i-1] + nums[i];
-
-            backwardSum[i] = sum - forwardSum[i];
-
-            if(forwardSum[i] >= backwardSum[i])
-                count++;    
+        // Initially all elements are on right side
+        for (int num : nums) {
+            rightSum += num;
         }
 
-        return count;    
+        int count = 0;
+        // Try each possible split position
+        for (int i = 0; i < nums.size() - 1; i++) {
+            // Move current element from right to left side
+            leftSum += nums[i];
+            rightSum -= nums[i];
+
+            // Check if this creates a valid split
+            if (leftSum >= rightSum) {
+                count++;
+            }
+        }
+
+        return count;
     }
 };
