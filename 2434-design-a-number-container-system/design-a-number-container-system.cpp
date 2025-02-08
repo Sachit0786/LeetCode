@@ -51,7 +51,7 @@ public:
 
 private:
     // Stores the mapping of each number to a sorted set of indices where it appears.
-    unordered_map<int, std::set<int>> valueToIndices;
+    unordered_map<int, set<int>> valueToIndices;
 
     // Stores the mapping of each index to its associated number.
     unordered_map<int, int> indexToValue;
